@@ -49,12 +49,6 @@
         let eraseMode = false;
         let brushSize = 5;
 
-        // Prevent default behavior for touch and mouse events
-        canvas.addEventListener('touchstart', (e) => e.preventDefault());
-        canvas.addEventListener('touchmove', (e) => e.preventDefault());
-        canvas.addEventListener('mousedown', (e) => e.preventDefault());
-        canvas.addEventListener('mousemove', (e) => e.preventDefault());
-
         // Start drawing
         canvas.addEventListener('mousedown', (e) => {
             isDrawing = true;
