@@ -15,7 +15,7 @@
             text-align: center;
             margin-bottom: 10px;
         }
-        .toolbar button, .toolbar input {
+        .toolbar button, .toolbar input, .toolbar select {
             margin: 0 5px;
         }
     </style>
@@ -27,6 +27,11 @@
         <button id="share">Share</button>
         <input type="color" id="colorPicker" value="#000000">
         <button id="erase">Erase</button>
+        <select id="brushSize">
+            <option value="5">Small</option>
+            <option value="10">Medium</option>
+            <option value="15">Large</option>
+        </select>
     </div>
     <canvas id="canvas" width="800" height="600"></canvas>
     <script>
@@ -36,6 +41,7 @@
         let isDrawing = false;
         let color = '#000000';
         let eraseMode = false;
+        let brushSize = 5;
 
         // Start drawing
         canvas.addEventListener('mousedown', (e) => {
@@ -49,7 +55,7 @@
             if (isDrawing) {
                 ctx.lineTo(e.offsetX, e.offsetY);
                 ctx.strokeStyle = eraseMode ? '#FFFFFF' : color;
-                ctx.lineWidth = 5;
+                ctx.lineWidth = brushSize;
                 ctx.lineCap = 'round';
                 ctx.stroke();
             }
@@ -74,6 +80,11 @@
         document.getElementById('erase').addEventListener('click', () => {
             eraseMode = !eraseMode;
             color = eraseMode ? '#FFFFFF' : document.getElementById('colorPicker').value;
+        });
+
+        // Change brush size
+        document.getElementById('brushSize').addEventListener('change', (e) => {
+            brushSize = parseInt(e.target.value, 10);
         });
 
         // Save the drawing
