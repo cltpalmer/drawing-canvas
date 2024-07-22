@@ -34,6 +34,8 @@
             <option value="10">Medium</option>
             <option value="15">Large</option>
         </select>
+        <input type="color" id="bgColorPicker" value="#ffffff">
+        <button id="bgColorBtn">Set Background Color</button>
     </div>
     <canvas id="canvas" width="800" height="600"></canvas>
 
@@ -115,6 +117,13 @@
             const link = canvas.toDataURL();
             const shareUrl = `https://twitter.com/intent/tweet?text=Check%20out%20my%20drawing!&url=${encodeURIComponent(link)}`;
             window.open(shareUrl, '_blank');
+        });
+
+        // Set background color
+        document.getElementById('bgColorBtn').addEventListener('click', () => {
+            const bgColor = document.getElementById('bgColorPicker').value;
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
         });
     </script>
 </body>
