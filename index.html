@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drawing Canvas</title>
     <style>
+        /* CSS Styles */
         #canvas {
             border: 1px solid black;
             background: white;
@@ -21,6 +22,7 @@
     </style>
 </head>
 <body>
+    <!-- HTML Structure -->
     <div class="toolbar">
         <button id="clear">Clear</button>
         <button id="save">Save</button>
@@ -34,6 +36,8 @@
         </select>
     </div>
     <canvas id="canvas" width="800" height="600"></canvas>
+
+    <!-- JavaScript -->
     <script>
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
@@ -42,6 +46,12 @@
         let color = '#000000';
         let eraseMode = false;
         let brushSize = 5;
+
+        // Prevent default behavior for touch and mouse events
+        canvas.addEventListener('touchstart', (e) => e.preventDefault());
+        canvas.addEventListener('touchmove', (e) => e.preventDefault());
+        canvas.addEventListener('mousedown', (e) => e.preventDefault());
+        canvas.addEventListener('mousemove', (e) => e.preventDefault());
 
         // Start drawing
         canvas.addEventListener('mousedown', (e) => {
@@ -64,6 +74,12 @@
         // Stop drawing
         canvas.addEventListener('mouseup', () => {
             isDrawing = false;
+            ctx.closePath();
+        });
+
+        // Stop drawing when mouse leaves the canvas
+        canvas.addEventListener('mouseleave', () => {
+            isDrawing = false;
         });
 
         // Clear the canvas
@@ -79,7 +95,6 @@
 
         document.getElementById('erase').addEventListener('click', () => {
             eraseMode = !eraseMode;
-            color = eraseMode ? '#FFFFFF' : document.getElementById('colorPicker').value;
         });
 
         // Change brush size
